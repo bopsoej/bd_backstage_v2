@@ -49,15 +49,16 @@
                 })
               }else{
                 loginCheck(5,this.user,this.password).then(res=>{
-                  if(res){
-                    global.isLogin=res;
+                  if(res.Islogin){
+                    global.isLogin=res.Islogin;
                     this.$router.push({path:'/home'})
-                    console.log(res);
+                    global.showModel=res.authority;
+                    console.log(global.showModel);
                   }else{
                     this.$alert('账号密码错误，请重新输入',{
                       confirmButton:'确定',
                     })
-                    global.isLogin=res;
+                    global.isLogin=res.Islogin;
                     console.log(res);
                   }
                 })
