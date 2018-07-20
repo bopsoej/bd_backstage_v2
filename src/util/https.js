@@ -124,3 +124,42 @@ export function loginCheck(model,user,password){
     })
   })
 }
+export function setNewUser(model,name,id_card,phone,password,sex,blood_type,referee_id,remarks){
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/userService.php',{
+      params:{
+        model:model,
+        name:name,
+        id_card:id_card,
+        phone:phone,
+        password:password,
+        sex:sex,
+        blood_type:blood_type,
+        referee_id:referee_id,
+        remarks:remarks
+
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+export function setAddApplyItem(model,id_card,operator,cut_time,remarks){
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/applyProcess.php',{
+      params:{
+        model:model,
+        id_card:id_card,
+        operator:operator,
+        cut_time:cut_time,
+        remarks:remarks
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}

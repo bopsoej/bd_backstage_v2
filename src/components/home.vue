@@ -8,7 +8,7 @@
           <el-container style="padding:0px;">
             <el-aside width="200px">
               <el-menu :default-active="activeIndex" @open="handleOpen" @close="handleClose" router mode="vertical">
-                <el-menu-item index="administratorManage" style="width:200px;"><span>管理员帐号管理</span></el-menu-item>
+                <el-menu-item index="administratorManage" style="width:200px;" v-show="GLOBAL.showModel==9"><span>管理员帐号管理</span></el-menu-item>
                 <el-menu-item index="userManage" style="width:200px;" >
                   <span >会员管理</span>
                 </el-menu-item>

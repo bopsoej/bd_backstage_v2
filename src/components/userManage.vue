@@ -17,8 +17,9 @@
       </div>
       <el-row type="flex" justify="end">
         <el-col :md="4">
-          <el-button type="primary" icon="el-icon-circle-plus" circle @click="showAddItemVisible"></el-button>
-          <el-button  type="primary" icon="el-icon-edit" circle></el-button>
+          <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="showAddItemVisible"></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle></el-button>
+          <!--<el-button  type="primary" icon="el-icon-edit" circle @click="change"></el-button>-->
         </el-col>
       </el-row>
       <el-dialog title="修改密码"  :visible.sync="dialogFormVisible">
@@ -38,37 +39,37 @@
       <el-dialog title="添加会员" :visible.sync="addItemVisible">
         <el-form>
           <el-form-item label="姓名">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.name"></el-input>
           </el-form-item>
           <el-form-item label="身份证号">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.id_card"></el-input>
           </el-form-item>
           <el-form-item label="手机号">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.phone"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.password"></el-input>
           </el-form-item>
           <el-form-item label="性别">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.sex"></el-input>
           </el-form-item>
           <el-form-item label="血型">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.blood_type"></el-input>
           </el-form-item>
           <el-form-item label="推荐人">
-            <el-input></el-input>
+            <el-input v-model="sendNewUser.referee_id"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addItemVisible=false">取消</el-button>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" @click="saveNewUser">确定</el-button>
         </div>
       </el-dialog>
     </div>
 </template>
 
 <script>
-  import {getUser_Table,setNewPassword} from "../util/https";
+  import {getUser_Table,setNewPassword,setNewUser} from "../util/https";
 
   export default {
         name: "user-manage",
@@ -84,7 +85,17 @@
             dialogTemp:'',
             addItemVisible:false,
             addItemTemp:'',
-            newPassword:''
+            newPassword:'',
+            sendNewUser:{
+              name:'',
+              id_card:'',
+              password:'',
+              phone:'',
+              sex:'',
+              blood_type:'',
+              referee_id:'',
+              remarks:''
+            }
           }
       },
     methods:{
@@ -98,15 +109,38 @@
           this.pageNow=val;
         })
       },
-      showAddItemVisible(val){
+      showAddItemVisible(){
         this.addItemVisible=true;
-        this.addItemTemp=val;
+        // this.addItemTemp=val;
       },
       change(val){
         // console.log(val);
         this.dialogFormVisible=true
         this.dialogTemp=val
         // console.log(val.id);
+      },
+      saveNewUser(){
+          setNewUser(6,this.sendNewUser.name,this.sendNewUser.id_card,this.sendNewUser.phone,this.sendNewUser.password,this.sendNewUser.sex,this.sendNewUser.blood_type,this.sendNewUser.referee_id,this.sendNewUser.remarks).then(res=>{
+            if(res){
+              getUser_Table(7,this.pageSize).then(res1=>{
+                this.countPage=res1;
+                // console.log(res);
+              })
+              getUser_Table(2,this.pageSize,this.pageNow).then(res1=>{
+                // console.log(res);
+                this.table=res1
+              })   //重新拉取表单
+              this.addItemVisible = false;
+              Object.keys(this.sendNewUser).forEach(key=>this.sendNewUser='')
+
+
+              console.log(res);
+            }else{
+              console.log(res);
+              // this.router.push({path:'/userManage'})
+              // this.addItemVisible=false;
+            }
+          })
       },
       changePs(){
         setNewPassword(3,this.dialogTemp.id,this.newPassword).then(res=>{
@@ -128,12 +162,12 @@
       }
     },
     mounted(){
-          getUser_Table(1,this.pageSize).then(res=>{
-            console.log(res);
-            this.countPage=res;
-          });
+      getUser_Table(7,this.pageSize).then(res=>{
+        this.countPage=res;
+        // console.log(res);
+      })
          getUser_Table(2,this.pageSize,this.pageNow).then(res=>{
-           console.log(res);
+           // console.log(res);
            this.table=res
          })
     }

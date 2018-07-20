@@ -6,11 +6,39 @@
       <el-table-column prop="cut_time" label="预约时间"></el-table-column>
       <el-table-column prop="remarks" label="备注"></el-table-column>
     </el-table>
+      <br>
+      <div>
+        <el-row type="flex" justify="end">
+          <el-col :md="4">
+            <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="addItemGroupVisible=true"></el-button>
+            <el-button type="danger" icon="el-icon-delete" circle></el-button>
+            <!--<el-button type="primary" icon="el-icon-edit" circle @click="jumpInfo"></el-button>-->
+          </el-col>
+        </el-row>
+      </div>
+      <el-dialog title="添加纪录" :visible.sync="addItemGroupVisible">
+        <el-form>
+          <!--<el-form-item label="报名时间">-->
+            <!--<el-input></el-input>-->
+          <!--</el-form-item>-->
+          <el-form-item label="身份证号">
+            <el-input v-model="newApplyItem.id_card"></el-input>
+          </el-form-item>
+          <el-form-item label="预约时间">
+            <el-input v-model="newApplyItem.cut_time"></el-input>
+          </el-form-item>
+          <el-form-item label="备注"><el-input v-model="newApplyItem.remarks"></el-input></el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="addItemGroupVisible=false">取消</el-button>
+          <el-button type="primary" @click="addApplyItem">确定</el-button>
+        </div>
+      </el-dialog>
     </div>
 </template>
 
 <script>
-  import {getApplylist} from "../util/https";
+  import {getApplylist,setAddApplyItem} from "../util/https";
 
   export default {
         name: "sign-up-manage",
@@ -18,9 +46,26 @@
           return{
             msg:'this is sign up manage page',
             table:[],
+            addItemGroupVisible:false,
+            newApplyItem:{
+              id_card:'',
+              cut_time:'',
+              remarks:''
+            }
           }
       },
     methods:{
+          addApplyItem(){
+            setAddApplyItem(6,this.newApplyItem.id_card,global.operator,this.newApplyItem.cut_time,this.newApplyItem.remarks).then(res=>{
+              if(res){
+                this.addItemGroupVisible=false;
+                Object.keys(this.newApplyItem).forEach(key=>this.newApplyItem='');
+                getApplylist(1,2).then(res=>{
+                  this.table=res
+                })
+              }
+            })
+          },
           jumpInfo(val){
             this.$router.push({path:'/applyInfo',query:{val}})
             // console.log(val.id_card)
@@ -30,7 +75,7 @@
       getApplylist(1,2).then(res=>{
         this.table=res
 
-        console.log(res);
+        console.log(global.operator);
       })
     }
     }
