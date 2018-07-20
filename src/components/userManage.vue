@@ -17,9 +17,14 @@
       </div>
       <el-row type="flex" justify="end">
         <el-col :md="4">
+<<<<<<< HEAD
           <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="showAddItemVisible"></el-button>
           <el-button type="danger" icon="el-icon-delete" circle></el-button>
           <!--<el-button  type="primary" icon="el-icon-edit" circle @click="change"></el-button>-->
+=======
+          <el-button type="primary" icon="el-icon-circle-plus" circle @click="showAddItemVisible"></el-button>
+          <el-button  type="primary" icon="el-icon-edit" circle @click="change"></el-button>
+>>>>>>> 898b38afac8075a02240301b60ef5e89aa2f5577
         </el-col>
       </el-row>
       <el-dialog title="修改密码"  :visible.sync="dialogFormVisible">

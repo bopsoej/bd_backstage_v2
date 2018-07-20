@@ -53,8 +53,12 @@
                     global.isLogin=res.Islogin;
                     this.$router.push({path:'/home'})
                     global.showModel=res.authority;
+<<<<<<< HEAD
                     global.operator=res.name;
                     console.log(global.operator);
+=======
+                    console.log(global.showModel);
+>>>>>>> 898b38afac8075a02240301b60ef5e89aa2f5577
                   }else{
                     this.$alert('账号密码错误，请重新输入',{
                       confirmButton:'确定',

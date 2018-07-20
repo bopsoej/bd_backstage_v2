@@ -146,6 +146,7 @@ export function setNewUser(model,name,id_card,phone,password,sex,blood_type,refe
     })
   })
 }
+<<<<<<< HEAD
 export function setAddApplyItem(model,id_card,operator,cut_time,remarks){
   return new Promise((resolve,reject)=>{
     axios.get('http://www.honor99.com/blood_station/admin/applyProcess.php',{
@@ -163,3 +164,5 @@ export function setAddApplyItem(model,id_card,operator,cut_time,remarks){
     })
   })
 }
+=======
+>>>>>>> 898b38afac8075a02240301b60ef5e89aa2f5577
