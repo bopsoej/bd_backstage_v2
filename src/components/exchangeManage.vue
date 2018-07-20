@@ -12,13 +12,18 @@
     <el-row type="flex" justify="end">
       <el-col :md="4">
         <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="addExchangeItemVisible=true"></el-button>
+<<<<<<< HEAD
         <el-button type="danger" icon="el-icon-delete" circle v-if="editButtonVisible" @click="editButtonVisible=false"></el-button>
         <el-button type="primary" icon="el-icon-edit" circle v-else @click="editButtonVisible=true"></el-button>
+=======
+        <el-button type="danger" icon="el-icon-delete" circle></el-button>
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
       </el-col>
     </el-row>
   </div>
   <el-dialog title="添加纪录" :visible.sync="addExchangeItemVisible">
     <el-form>
+<<<<<<< HEAD
       <el-form-item label="身份证号"><el-input v-model="newExchangeItem.id_card"></el-input></el-form-item>
       <el-form-item label="预约时间"><el-input v-model="newExchangeItem.exchange_time"></el-input></el-form-item>
       <el-form-item label="兑换积分"><el-input v-model="newExchangeItem.exchange_points"></el-input></el-form-item>
@@ -28,6 +33,17 @@
     <div slot="footer">
       <el-button @click="addExchangeItemVisible=false">取消</el-button>
       <el-button type="primary" @click="addExchangeItem">确定</el-button>
+=======
+      <el-form-item label="身份证号"><el-input></el-input></el-form-item>
+      <el-form-item label="预约时间"><el-input></el-input></el-form-item>
+      <el-form-item label="兑换积分"><el-input></el-input></el-form-item>
+      <el-form-item label="礼品名"><el-input></el-input></el-form-item>
+      <el-form-item label="备注"><el-input></el-input></el-form-item>
+    </el-form>
+    <div slot="footer">
+      <el-button @click="addExchangeItemVisible=false">取消</el-button>
+      <el-button type="primary">确定</el-button>
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
     </div>
   </el-dialog>
 </div>
@@ -42,6 +58,7 @@
           return{
             msg:'this is exchange page',
             table:[],
+<<<<<<< HEAD
             addExchangeItemVisible:false,
             editButtonVisible:false,
             newExchangeItem:{
@@ -51,6 +68,9 @@
               exchange_gift:'',
               remarks:''
             }
+=======
+            addExchangeItemVisible:false
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
           }
         },
     methods:{

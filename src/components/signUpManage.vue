@@ -11,9 +11,13 @@
         <el-row type="flex" justify="end">
           <el-col :md="4">
             <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="addItemGroupVisible=true"></el-button>
+<<<<<<< HEAD
             <el-button type="danger" icon="el-icon-delete" circle  @click="editButtonVisible=false" v-if="editButtonVisible"></el-button>
 
             <el-button type="primary" icon="el-icon-edit" circle  @click="editButtonVisible=true" v-else></el-button>
+=======
+            <el-button type="danger" icon="el-icon-delete" circle></el-button>
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
             <!--<el-button type="primary" icon="el-icon-edit" circle @click="jumpInfo"></el-button>-->
           </el-col>
         </el-row>
@@ -40,7 +44,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
   import {getApplylist,setAddApplyItem,delApplyItem} from "../util/https";
+=======
+  import {getApplylist,setAddApplyItem} from "../util/https";
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
 
   export default {
         name: "sign-up-manage",
@@ -49,7 +57,10 @@
             msg:'this is sign up manage page',
             table:[],
             addItemGroupVisible:false,
+<<<<<<< HEAD
             editButtonVisible:false,
+=======
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
             newApplyItem:{
               id_card:'',
               cut_time:'',

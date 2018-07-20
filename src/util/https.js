@@ -146,8 +146,13 @@ export function setNewUser(model,name,id_card,phone,password,sex,blood_type,refe
     })
   })
 }
+<<<<<<< HEAD
 
 export function setAddApplyItem(model,id_card,operator,cut_time,remarks){ //献血表添加新记录
+=======
+<<<<<<< HEAD
+export function setAddApplyItem(model,id_card,operator,cut_time,remarks){
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
   return new Promise((resolve,reject)=>{
     axios.get('http://www.honor99.com/blood_station/admin/applyProcess.php',{
       params:{
@@ -164,6 +169,7 @@ export function setAddApplyItem(model,id_card,operator,cut_time,remarks){ //献�
     })
   })
 }
+<<<<<<< HEAD
 
 export function setAddExchangeItem(model,identifying,id_card,operator,exchange_points,exchange_time,exchange_gift,remarks){ //exchange表添加记录
   return new Promise((resolve,reject)=>{
@@ -227,3 +233,7 @@ export function delExchangeItem(model,id_card){ //删除exchange表某项
     })
   })
 }
+=======
+=======
+>>>>>>> 898b38afac8075a02240301b60ef5e89aa2f5577
+>>>>>>> d4f5696ce4bc83d927bac7ee72e3d5cae53b67b9
