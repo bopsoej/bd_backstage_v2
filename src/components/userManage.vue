@@ -1,6 +1,7 @@
 <template>
     <div>
-      <el-table :data="table" style="text-align:left" @cell-click="change" >
+      <el-table :data="table" style="text-align:left" @cell-click="change">
+        <!--<el-table :data="table" style="text-align:left" @cell-click="deleteItem" v-if="editVisible==false">-->
       <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column prop="id_card" label="身份证号" ></el-table-column>
         <el-table-column prop="phone" label="手机号" ></el-table-column>
@@ -11,14 +12,20 @@
         <el-table-column prop="referee_id" label="推荐人"></el-table-column>
         <el-table-column prop="points" label="积分"></el-table-column>
         <el-table-column prop="remarks" label="备注"></el-table-column>
+        <!--<el-table-column label="操作"><el-radio label="1"></el-radio></el-table-column>-->
     </el-table>
+      <!--</el-table>-->
       <div class="block">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage3" :page-size="pageSize" layout="prev,pager,next,jumper" :page-count="countPage"></el-pagination>
       </div>
       <el-row type="flex" justify="end">
         <el-col :md="4">
-          <el-button type="primary" icon="el-icon-circle-plus" circle @click="showAddItemVisible"></el-button>
-          <el-button  type="primary" icon="el-icon-edit" circle @click="change"></el-button>
+
+          <el-button type="primary" icon="el-icon-circle-plus-outline" circle @click="showAddItemVisible"></el-button>
+          <el-button type="danger" icon="el-icon-delete" circle v-if="editVisible" @click="editVisible=false"></el-button>
+          <el-button  type="primary" icon="el-icon-edit" circle @click="editVisible=true" v-else></el-button>
+
+
         </el-col>
       </el-row>
       <el-dialog title="修改密码"  :visible.sync="dialogFormVisible">
@@ -68,7 +75,7 @@
 </template>
 
 <script>
-  import {getUser_Table,setNewPassword,setNewUser} from "../util/https";
+  import {getUser_Table,setNewPassword,setNewUser,delUserItem} from "../util/https";
 
   export default {
         name: "user-manage",
@@ -85,6 +92,7 @@
             addItemVisible:false,
             addItemTemp:'',
             newPassword:'',
+            editVisible:false,
             sendNewUser:{
               name:'',
               id_card:'',
@@ -108,15 +116,47 @@
           this.pageNow=val;
         })
       },
-      showAddItemVisible(val){
+      showAddItemVisible(){
         this.addItemVisible=true;
-        this.addItemTemp=val;
+        // this.addItemTemp=val;
       },
       change(val){
-        // console.log(val);
-        this.dialogFormVisible=true
-        this.dialogTemp=val
-        // console.log(val.id);
+
+        if(this.editVisible){
+          this.$confirm('确认删除用户：'+val.name+'？','提示',{
+            confirmButtonText:'确定',
+            cancelButtonText:'取消',
+            type:'warning'
+          }).then(()=>{
+            delUserItem(8,val.id).then(res1=>{
+              if(res1){
+                getUser_Table(7,this.pageSize).then(res=>{
+                  this.countPage=res;
+                })
+                getUser_Table(2,this.pageSize,this.pageNow).then(res=>{
+                  this.table=res
+                })
+                this.$message({
+                  type:'success',
+                  message:'删除成功！'
+                });
+              }else{
+                console.log(res1);
+              }
+
+            })
+
+          }).catch(()=>{
+            this.$message({
+              type:'info',
+              message:'已取消删除'
+            });
+          });
+          // this.deleteItem()
+        }else{
+          this.dialogFormVisible=true
+          this.dialogTemp=val
+        }
       },
       saveNewUser(){
           setNewUser(6,this.sendNewUser.name,this.sendNewUser.id_card,this.sendNewUser.phone,this.sendNewUser.password,this.sendNewUser.sex,this.sendNewUser.blood_type,this.sendNewUser.referee_id,this.sendNewUser.remarks).then(res=>{

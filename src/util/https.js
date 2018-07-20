@@ -146,3 +146,84 @@ export function setNewUser(model,name,id_card,phone,password,sex,blood_type,refe
     })
   })
 }
+
+export function setAddApplyItem(model,id_card,operator,cut_time,remarks){ //献血表添加新记录
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/applyProcess.php',{
+      params:{
+        model:model,
+        id_card:id_card,
+        operator:operator,
+        cut_time:cut_time,
+        remarks:remarks
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+
+export function setAddExchangeItem(model,identifying,id_card,operator,exchange_points,exchange_time,exchange_gift,remarks){ //exchange表添加记录
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/exchangeProcess.php',{
+      params:{
+        model:model,
+        identifying:identifying,
+        id_card:id_card,
+        operator:operator,
+        exchange_points:exchange_points,
+        exchange_time:exchange_time,
+        exchange_gift:exchange_gift,
+        remarks:remarks
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+export function delUserItem(model,id){ //删除用户表一项记录
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/userService.php',{
+      params:{
+        model:model,
+        id:id,
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+export function delApplyItem(model,id_card){ //删除apply表某一项
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/applyProcess.php',{
+      params:{
+        model:model,
+        id_card:id_card
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}
+export function delExchangeItem(model,id_card){ //删除exchange表某项
+  return new Promise((resolve,reject)=>{
+    axios.get('http://www.honor99.com/blood_station/admin/exchangeProcess.php',{
+      params:{
+        model:model,
+        id_card:id_card
+      }
+    }).then(response=>{
+      resolve(response.data)
+    }).catch(err=>{
+      reject(err)
+    })
+  })
+}

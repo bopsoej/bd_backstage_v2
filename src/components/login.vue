@@ -12,10 +12,10 @@
             </el-row>
             <el-row type="flex" justify="center">
               <el-col :md="1"><el-form-item label="密码："></el-form-item></el-col>
-              <el-col :md="4"><el-input v-model="password"></el-input></el-col>
+              <el-col :md="4"><el-input v-model="password" @keyup.enter.native="login"></el-input></el-col>
             </el-row>
             <el-row type="flex" justify="center">
-              <el-col :md="5" :push="2" ><el-button  @click="login" type="primary">登录</el-button></el-col>
+              <el-col :md="5" :push="2" ><el-button  @click="login"  type="primary">登录</el-button></el-col>
             </el-row>
           </el-form>
         </el-main>
@@ -36,6 +36,8 @@
           }
       },
       methods:{
+          // test(ev){
+          //   console.log(ev.keyCode);},
           login(){
 
             if(this.user=='' || this.user==null ){
@@ -53,8 +55,10 @@
                     global.isLogin=res.Islogin;
                     this.$router.push({path:'/home'})
                     global.showModel=res.authority;
-                    console.log(global.showModel);
-                  }else{
+                    global.operator=res.name;
+                    console.log(global.operator);
+                    // console.log(global.showModel);
+             }else{
                     this.$alert('账号密码错误，请重新输入',{
                       confirmButton:'确定',
                     })
@@ -62,7 +66,6 @@
                     console.log(res);
                   }
                 })
-
               }
             }
           }
